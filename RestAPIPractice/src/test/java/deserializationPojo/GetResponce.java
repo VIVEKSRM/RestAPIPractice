@@ -1,4 +1,4 @@
-package pojo;
+package deserializationPojo;
 
 public class GetResponce {
 
@@ -41,11 +41,11 @@ public class GetResponce {
         this.expertise = expertise;
     }
 
-    public pojo.courses getCourses() {
+    public deserializationPojo.courses getCourses() {
         return courses;
     }
 
-    public void setCourses(pojo.courses courses) {
+    public void setCourses(deserializationPojo.courses courses) {
         this.courses = courses;
     }
 

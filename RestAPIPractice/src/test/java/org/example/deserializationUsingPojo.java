@@ -1,13 +1,11 @@
 package org.example;
 
 import io.restassured.path.json.JsonPath;
-import org.apache.http.io.SessionOutputBuffer;
 import org.testng.annotations.Test;
-import io.restassured.RestAssured;
-import pojo.GetResponce;
+import deserializationPojo.GetResponce;
 
 import static io.restassured.RestAssured.*;
-public class apiMainTest {
+public class deserializationUsingPojo {
 
 
     @Test

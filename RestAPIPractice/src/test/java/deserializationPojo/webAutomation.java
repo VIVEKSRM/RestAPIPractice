@@ -1,6 +1,4 @@
-package pojo;
-
-import java.util.List;
+package deserializationPojo;
 
 public class webAutomation {
 
