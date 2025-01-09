@@ -4,6 +4,8 @@ import io.restassured.path.json.JsonPath;
 import org.apache.http.io.SessionOutputBuffer;
 import org.testng.annotations.Test;
 import io.restassured.RestAssured;
+import pojo.GetResponce;
+
 import static io.restassured.RestAssured.*;
 public class apiMainTest {
 
@@ -25,12 +27,17 @@ public class apiMainTest {
         String accessToken=js.get("access_token");
         System.out.println(accessToken);
 
-        String getResponse=given().queryParam("access_token",accessToken)
-                .when().get("oauthapi/getCourseDetails")
+        GetResponce getResponse=given().queryParam("access_token",accessToken)
+                .when().log().all()
+                .get("oauthapi/getCourseDetails")
                 .then().log().all()
                 .assertThat().statusCode(401)
-                .extract().response().asString();
-        System.out.println(getResponse);
+                .extract().response()
+                .as(GetResponce.class);
+        System.out.println("Instructor :- "+getResponse.getInstructor());
+        System.out.println("getCourses :- "+getResponse.getCourses().getWebAutomation());
+        System.out.println("getWebAutomation :- "+getResponse.getCourses().getWebAutomation().get(0).getCourseTitle());
+        System.out.println("getLinkedIn :- "+getResponse.getLinkedIn());
 
     }
 
