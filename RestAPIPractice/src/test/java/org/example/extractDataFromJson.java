@@ -46,6 +46,7 @@ public class extractDataFromJson {
                 "    \"linkedIn\": \"https://www.linkedin.com/in/rahul-shetty-trainer/\"\n" +
                 "}";
 
+      //  System.out.println(jsonObjectString);
         JsonPath js = new JsonPath(jsonObjectString);
         System.out.println(js.getString("instructor"));
         System.out.println(js.getString("courses.webAutomation[0].courseTitle"));

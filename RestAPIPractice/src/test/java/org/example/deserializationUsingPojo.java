@@ -2,9 +2,9 @@ package org.example;
 
 import io.restassured.path.json.JsonPath;
 import org.testng.annotations.Test;
-import deserializationPojo.GetResponce;
 
 import static io.restassured.RestAssured.*;
+
 public class deserializationUsingPojo {
 
 
@@ -21,11 +21,13 @@ public class deserializationUsingPojo {
                 .post("oauthapi/oauth2/resourceOwner/token")
                 .then().assertThat().statusCode(200).extract().response().asString();
 
+        // here we are getting Strings hence directly from Json path we can extract
+        System.out.println("****postResponce :- "+postResponce);
         JsonPath js = new JsonPath(postResponce);
         String accessToken=js.get("access_token");
         System.out.println(accessToken);
 
-        GetResponce getResponse=given().queryParam("access_token",accessToken)
+/*        GetResponce getResponse=given().queryParam("access_token",accessToken)
                 .when().log().all()
                 .get("oauthapi/getCourseDetails")
                 .then().log().all()
@@ -35,7 +37,26 @@ public class deserializationUsingPojo {
         System.out.println("Instructor :- "+getResponse.getInstructor());
         System.out.println("getCourses :- "+getResponse.getCourses().getWebAutomation());
         System.out.println("getWebAutomation :- "+getResponse.getCourses().getWebAutomation().get(0).getCourseTitle());
-        System.out.println("getLinkedIn :- "+getResponse.getLinkedIn());
+        System.out.println("getLinkedIn :- "+getResponse.getLinkedIn());*/
+
+
+
+
+
+        //From JsonPath Directly will not work as get() is returning objects
+               String getStringResponse=given().queryParam("access_token",accessToken)
+                .when().log().all()
+                .get("oauthapi/getCourseDetails")
+                .then().log().all()
+                .assertThat().statusCode(401)
+                .extract().response()
+                .toString();
+
+        System.out.println("getStringResponse :- "+getStringResponse);
+        JsonPath js1 = new JsonPath(getStringResponse);
+
+       // System.out.println(js1.getString("instructor"));
+      //  System.out.println(js1.getString("courses.webAutomation[0].courseTitle"));
 
     }
 
