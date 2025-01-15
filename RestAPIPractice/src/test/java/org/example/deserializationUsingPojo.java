@@ -27,6 +27,7 @@ public class deserializationUsingPojo {
         String accessToken=js.get("access_token");
         System.out.println(accessToken);
 
+        //With Pojo --------------IMP CONCEPT-------------
 /*        GetResponce getResponse=given().queryParam("access_token",accessToken)
                 .when().log().all()
                 .get("oauthapi/getCourseDetails")
@@ -39,24 +40,20 @@ public class deserializationUsingPojo {
         System.out.println("getWebAutomation :- "+getResponse.getCourses().getWebAutomation().get(0).getCourseTitle());
         System.out.println("getLinkedIn :- "+getResponse.getLinkedIn());*/
 
-
-
-
-
-        //From JsonPath Directly will not work as get() is returning objects
+        //From JsonPath Directly -----------------IMP CONCEPT ----------
                String getStringResponse=given().queryParam("access_token",accessToken)
                 .when().log().all()
                 .get("oauthapi/getCourseDetails")
                 .then().log().all()
                 .assertThat().statusCode(401)
                 .extract().response()
-                .toString();
+                .asString();
 
         System.out.println("getStringResponse :- "+getStringResponse);
         JsonPath js1 = new JsonPath(getStringResponse);
 
-       // System.out.println(js1.getString("instructor"));
-      //  System.out.println(js1.getString("courses.webAutomation[0].courseTitle"));
+        System.out.println(js1.getString("instructor"));
+        System.out.println(js1.getString("courses.webAutomation[0].courseTitle"));
 
     }
 
